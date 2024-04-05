@@ -12,17 +12,15 @@ function _displayData(data) {
     const tBody = document.getElementById('todos');
     tBody.innerHTML = ''; 
 
-    data.fetch(d => {
-        let isCompleteCheckbox = document.getElementById('edit-isComplete'); 
+    const button = document.createElement('button');
+
+    data.forEach(d => {
+        let isCompleteCheckbox = document.createElement('input'); 
 
         isCompleteCheckbox.type = 'checkbox';
         isCompleteCheckbox.Disabled = true;
         isCompleteCheckbox.checked = d.IsCompleted;
 
-
-        let name = document.getElementById("edit-name"); 
-        name.type = 'text'; 
-        name.value = d.Name; 
     })
 
 }
