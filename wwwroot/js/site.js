@@ -24,12 +24,12 @@ function _displayData(data) {
         //edit button 
         let editButton = button.cloneNode(false);
         editButton.innerText = 'Edit';
-        editButton.setAttribute('onClick', `displayEditForm(${d.Id})`);
+        editButton.setAttribute('onClick', `displayEditForm(${d.id})`);
 
         //delete button 
         let deleteButton = button.cloneNode(false);
         deleteButton.innerText = 'Delete';
-        deleteButton.setAttribute('onClick', `deleteItem(${d.Id})`);
+        deleteButton.setAttribute('onClick', `deleteItem(${d.id})`);
 
         let tr = tBody.insertRow();
 
@@ -37,7 +37,7 @@ function _displayData(data) {
         td1.appendChild(isCompleteCheckbox);
 
         let td2 = tr.insertCell(1);
-        let text = document.createTextNode(d.Name);
+        let text = document.createTextNode(d.name);
         td2.appendChild(text);
 
 
@@ -88,12 +88,12 @@ function deleteItem(id) {
 }
 
 function displayEditForm(id) {
-    const item = todos.find(i => i.Id == id);
+    const item = todos.find(i => i.id == id);
 
     document.getElementById('edit-name').value = item.name;
     document.getElementById('edit-id').value = item.id;
     document.getElementById('edit-isComplete').checked = item.isCompleted;
-    document.getElementById('edit-form').style.display = 'block';
+    document.getElementById('editForm').style.display = 'block';
 }
 
 function updateItem() {
@@ -120,7 +120,7 @@ function updateItem() {
 }
 
 function close() {
-    document.getElementById('edit-form').style.display = 'none';
+    document.getElementById('editForm').style.display = 'none';
 }
 
 
