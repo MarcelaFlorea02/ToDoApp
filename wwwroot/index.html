@@ -15,11 +15,12 @@
 
     <div id="editForm">
         <h3>Edit</h3>
-        <form action="javascript:void(0);" method="post" onsubmit="updateItem()">
+        <form action="javascript:void(0);" onsubmit="updateItem()">
             <input type="hidden" id="edit-id" />
             <input type="checkbox" id="edit-isComplete" />
             <input type="text" id="edit-name" />
             <input type="submit" value="Save" />
+            <a onClick="close()" aria-label="Close" />
         </form>
     </div>
 
