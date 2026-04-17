@@ -10,46 +10,45 @@ public class ToDoContext : DbContext
 
     }
 
-    public DbSet<ToDoItem> ToDoItems { get; set; }
+    // Initialize to satisfy the compiler; EF will populate this at runtime
+    public DbSet<ToDoItem> ToDoItem { get; set; } = null!;
+
 
     //get all items 
     public Task<List<ToDoItem>> GetAllAsync()
     {
-        var items = ToDoItems.AsQueryable().ToListAsync();
-        return items;
+        return ToDoItem.ToListAsync();
     }
 
     //get item by id 
-    public Task<ToDoItem> GetByIdAsync(int id)
+    public async Task<ToDoItem?> GetByIdAsync(int id)
     {
-        var item = ToDoItems.Where(i => i.Id == id).FirstOrDefaultAsync();
-        if (item == null)
-            throw new Exception("Item not found");
+        var item = await ToDoItem.Where(i => i.Id == id).FirstOrDefaultAsync();
         return item;
     }
 
     //add new item 
     public async Task AddAsync(ToDoItem item)
     {
-        await ToDoItems.AddAsync(item);
+        await ToDoItem.AddAsync(item);
         await base.SaveChangesAsync();
     }
 
     //update item 
     public async Task UpdateAsync(ToDoItem item)
     {
-        ToDoItems.Update(item);
+        ToDoItem.Update(item);
         await base.SaveChangesAsync();
     }
 
     //delete an item 
     public async Task<bool> DeleteAsync(int id)
     {
-        var item = await ToDoItems.Where(i => i.Id == id).FirstOrDefaultAsync();
+        var item = await ToDoItem.Where(i => i.Id == id).FirstOrDefaultAsync();
         if (item == null)
             return false;
 
-        ToDoItems.Remove(item);
+        ToDoItem.Remove(item);
         await base.SaveChangesAsync();
         return true;
     }
