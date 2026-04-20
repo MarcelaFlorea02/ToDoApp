@@ -49,7 +49,7 @@ public class ToDoController : ControllerBase
         if (toDoItem == null)
             return NotFound(); 
 
-        await _context.UpdateAsync(toDoItem);
+        await _context.UpdateAsync(item);
         return Ok();
     }
 

@@ -52,7 +52,4 @@ public class ToDoContext : DbContext
         await base.SaveChangesAsync();
         return true;
     }
-
-
-
 }
