@@ -1,0 +1,24 @@
+curl -X POST "https://localhost:7212/api/todo" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "Description": "smoke",
+    "IsDone": false
+}'
+
+
+curl -X GET "https://localhost:7212/api/todo/5"
+
+
+curl -X PUT "https://localhost:7212/api/todo/6" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "Description": "smoke",
+    "IsDone": false
+}'
+
+
+curl -X GET "https://localhost:7212/api/todo"
+
+
+
+curl -X DELETE "https://localhost:7212/api/todo/6"
