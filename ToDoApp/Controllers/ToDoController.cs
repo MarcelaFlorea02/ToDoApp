@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoApp.Data;
 using ToDoApp.Models;
+using ToDoApp.ModelsDTO;
 
 namespace ToDoApp.Controllers;
 
@@ -33,23 +34,29 @@ public class ToDoController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> Post(ToDoItem item)
+    public async Task<ActionResult> Post(AddToDoItem itemToBeAdded)
     {
+        var item = new ToDoItem()
+        {
+            Description = itemToBeAdded.Description,
+            IsDone = itemToBeAdded.IsDone
+        }; 
+
         await _context.AddAsync(item);
         return Ok();
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> Put(int id, ToDoItem item)
+    public async Task<ActionResult> Put(int id, UpdateToDoItem itemToBeUpdated)
     {
-        if (id != item.Id)
-            return BadRequest();
-
         var toDoItem = await _context.GetByIdAsync(id);
         if (toDoItem == null)
             return NotFound(); 
 
-        await _context.UpdateAsync(item);
+        toDoItem.Description = itemToBeUpdated.Description;
+        toDoItem.IsDone = itemToBeUpdated.IsDone;
+
+        await _context.UpdateAsync(toDoItem);
         return Ok();
     }
 
