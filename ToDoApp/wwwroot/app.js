@@ -41,3 +41,46 @@ async function updateTodo(id, dto) {
     throw new Error(`Failed to update todo: ${res.status} ${text}`);
   }
 }
+
+
+// Delete a todo by id. Throws on failure so caller can inform the user.
+async function deleteTodo(id) {
+  const res = await fetch(`${apiBase}/${id}`, {
+    method: 'DELETE'
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Failed to delete todo: ${res.status} ${text}`);
+  }
+}
+
+// Refresh the UI by fetching data and re-rendering.
+async function refresh() {
+  const todos = await fetchTodos();
+  renderTodos(todos);
+}
+
+// Wire up the form and initial load.
+// The form uses built-in HTML validation (required, maxlength) before submission.
+window.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('new-todo-item-form');
+  const input = document.getElementById('new-todo-item-name-input');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const v = input.value.trim();
+    if (!v) return; // guard against empty input
+    try {
+      await createTodo(v);
+      input.value = '';
+      await refresh();
+    } catch (err) {
+      // In production, render a user-friendly error instead of alert.
+      alert(err);
+    }
+  });
+
+  // Initial load of todos
+  refresh();
+});
