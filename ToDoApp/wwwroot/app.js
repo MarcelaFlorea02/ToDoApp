@@ -23,8 +23,6 @@ async function createTodo(description) {
     const text = await res.text();
     throw new Error(`Failed to create todo: ${res.status} ${text}`);
   }
-
-  return res.json();
 }
 
 // Update an existing todo by id. 
@@ -82,7 +80,7 @@ function renderTodos(todos) {
 
     const name = document.createElement('div');
     name.className = 'todo-name' + (t.isDone ? ' completed' : '');
-    name.textContent = t.name;
+    name.textContent = t.description;
 
     left.appendChild(cb);
     left.appendChild(name);
@@ -95,7 +93,7 @@ function renderTodos(todos) {
     editBtn.className = 'small-btn';
     editBtn.textContent = 'Edit';
     editBtn.addEventListener('click', () => {
-      const newName = prompt('Edit todo', t.name);
+      const newName = prompt('Edit todo', t.description);
       if (newName !== null) {
         updateTodo(t.id, { id: t.id, description: newName, isDone: t.isDone }).then(refresh).catch(err => alert(err));
       }

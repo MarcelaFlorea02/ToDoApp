@@ -80,10 +80,13 @@ li {
 
 .small-btn {
     background: transparent;
-    border: 1px solid #ddd;
+    border: 1px solid;
     padding: 4px 8px;
     border-radius: 4px;
+    margin-right: 6px;
     cursor: pointer;
+    color: #0e2ab4;
+    border-color: #0e2ab4;
 }
 
     .small-btn.danger {
